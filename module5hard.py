@@ -1,4 +1,4 @@
-from time import sleep
+import time
 
 class User:
     def __init__(self, nickname: str, password: int, age: int):
@@ -36,19 +36,18 @@ class UrTube:
             if user.nickname == nickname:
                 print(f"Пользователь {nickname} уже существует")
                 return
-
-        new_user = User(nickname, password, age)
-        self.users.append(new_user)
-        self.current_user = new_user
-#        print(f'Пользователь {nickname} зарегистрирован и вошел в систему')
-
+        else:
+            new_user = User(nickname, password, age)
+            self.users.append(new_user)
+            self.current_user = new_user
+#            print(f'Пользователь {nickname} зарегистрирован и вошел в систему')
 
     def log_out(self):
         self.current_user = None
 
     def log_in(self, login: str, password: str):
         for user in self.users:
-            if login == user.nickname and password == user.password:
+            if login == user.nickname and password == hash(password):
                 self.current_user = user
 
     def add(self, *args):
@@ -78,8 +77,8 @@ class UrTube:
 
                 for i in range(1, 11):
                     print(i, end=' ')
-                    x.time_now += 1
-                x.time_now = 0
+                    time.sleep(1)
+
                 print('Конец видео')
 
 if __name__ == '__main__':
